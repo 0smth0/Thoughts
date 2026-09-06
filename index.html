@@ -39,17 +39,19 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between text-gray-700 relative pb-10 px-4">
 
-    <!-- Кнопка экстренного выхода (Паника) -->
-    <div class="pt-4 px-2 flex justify-between items-center max-w-2xl mx-auto w-full">
-        <div class="flex items-center gap-2 text-sage-500 font-medium text-sm">
-            <i class="fa-solid fa-shield-heart text-lg"></i>
-            <span>Мы не сохраняем никакой информации</span>
+    <!-- Кнопка экстренного выхода (Всегда сверху при прокрутке) -->
+    <div class="sticky top-0 z-50 py-3 px-2 bg-[#e8efe9]/90 backdrop-blur-md flex justify-between items-center max-w-2xl mx-auto w-full border-b border-sage-200/60 mb-2">
+        <div class="flex items-center gap-2 text-sage-500 font-medium text-xs sm:text-sm">
+            <i class="fa-solid fa-shield-heart text-base sm:text-lg"></i>
+            <span>100% Анонимно</span>
         </div>
         <a href="https://ya.ru" 
-           title="Быстрый уход с сайта, если кто-то подходит"
-           class="bg-panic-pink hover:bg-panic-pinkHover text-white text-xs sm:text-sm font-bold py-2.5 px-4 rounded-full shadow-md transition-all duration-200 transform active:scale-95 flex items-center gap-2 border-2 border-white">
+           id="quick-exit-btn"
+           title="Быстрый уход с сайта, если кто-то подходит (или нажмите Esc)"
+           class="bg-panic-pink hover:bg-panic-pinkHover text-white text-xs sm:text-sm font-bold py-2.5 px-4 rounded-full shadow-lg transition-all duration-200 transform active:scale-95 flex items-center gap-2 border-2 border-white">
             <i class="fa-solid fa-bolt"></i>
             <span>Скрыть страницу (ya.ru)</span>
+            <span class="hidden sm:inline-block bg-black/20 text-[10px] px-1.5 py-0.5 rounded font-mono ml-0.5">Esc</span>
         </a>
     </div>
 
@@ -150,5 +152,13 @@
         <p>Твои посещения полностью анонимны. Мы не сохраняем личную информацию.</p>
     </footer>
 
+    <!-- Скрипт быстрого выхода по клавише Esc -->
+    <script>
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                window.location.href = 'https://ya.ru';
+            }
+        });
+    </script>
 </body>
 </html>
