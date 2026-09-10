@@ -1,164 +1,641 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ты не один | Безопасное пространство</title>
+    <title>Социальный проект «Моральный скотч» — Твое безопасное пространство</title>
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Nunito & Comfortaa (Rounded fonts with full Cyrillic support) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;600;700&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
+                    fontFamily: {
+                        sans: ['"Nunito"', 'sans-serif'],
+                        heading: ['"Comfortaa"', 'cursive', 'sans-serif'],
+                    },
                     colors: {
-                        sage: {
-                            50: '#f4f7f4',
-                            100: '#e3ebe3',
-                            200: '#c7d7c7',
-                            300: '#a3bfa3',
-                            400: '#7fa37f',
-                            500: '#628762',
-                        },
-                        panic: {
-                            pink: '#ff758c',
-                            pinkHover: '#ff5271'
+                        m3: {
+                            primary: 'var(--m3-primary)',
+                            onPrimary: 'var(--m3-on-primary)',
+                            primaryContainer: 'var(--m3-primary-container)',
+                            onPrimaryContainer: 'var(--m3-on-primary-container)',
+                            secondary: 'var(--m3-primary)',
+                            secondaryContainer: 'var(--m3-secondary-container)',
+                            onSecondaryContainer: 'var(--m3-on-secondary-container)',
+                            surface: 'var(--m3-surface)',
+                            surfaceVariant: 'var(--m3-surface-variant)',
+                            onSurface: 'var(--m3-on-surface)',
+                            onSurfaceVariant: 'var(--m3-on-surface-variant)',
+                            outline: 'var(--m3-outline)',
+                            error: '#ba1a1a',
+                            errorContainer: '#ffdad6',
+                            onErrorContainer: '#410002',
                         }
+                    },
+                    borderRadius: {
+                        'm3-sm': '12px',
+                        'm3-md': '18px',
+                        'm3-lg': '24px',
+                        'm3-xl': '32px',
+                        'm3-full': '9999px',
+                    },
+                    boxShadow: {
+                        'm3-1': '0px 1px 3px 1px rgba(0, 0, 0, 0.08), 0px 1px 2px 0px rgba(0, 0, 0, 0.12)',
+                        'm3-2': '0px 2px 8px 2px rgba(0, 0, 0, 0.10), 0px 1px 4px 0px rgba(0, 0, 0, 0.15)',
+                        'm3-3': '0px 4px 12px 4px rgba(0, 0, 0, 0.12), 0px 2px 6px 0px rgba(0, 0, 0, 0.20)',
                     }
                 }
             }
         }
     </script>
-    <!-- FontAwesome icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        body {
-            background-color: #e8efe9; /* Мягкий шалфейный цвет */
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        /* Rounded Material You Themes */
+        :root {
+            /* Default Lavender / Iris Palette */
+            --m3-primary: #6750a4;
+            --m3-on-primary: #ffffff;
+            --m3-primary-container: #eaddff;
+            --m3-on-primary-container: #21005d;
+            --m3-secondary: #625b71;
+            --m3-secondary-container: #e8def8;
+            --m3-on-secondary-container: #1d192b;
+            --m3-surface: #fdf8ff;
+            --m3-surface-variant: #e7e0ec;
+            --m3-on-surface: #1c1b1f;
+            --m3-on-surface-variant: #49454f;
+            --m3-outline: #79747e;
+        }
+
+        /* Ocean Mint Theme Option */
+        .theme-mint {
+            --m3-primary: #006a60;
+            --m3-on-primary: #ffffff;
+            --m3-primary-container: #74f8e8;
+            --m3-on-primary-container: #00201c;
+            --m3-secondary: #4a635f;
+            --m3-secondary-container: #cce8e3;
+            --m3-on-secondary-container: #051f1c;
+            --m3-surface: #f4faf8;
+            --m3-surface-variant: #dae5e1;
+            --m3-on-surface: #161d1b;
+            --m3-on-surface-variant: #3f4946;
+            --m3-outline: #6f7976;
+        }
+
+        /* Warm Coral Theme Option */
+        .theme-coral {
+            --m3-primary: #9c4323;
+            --m3-on-primary: #ffffff;
+            --m3-primary-container: #ffdbd1;
+            --m3-on-primary-container: #3b0900;
+            --m3-secondary: #77574e;
+            --m3-secondary-container: #ffdad2;
+            --m3-on-secondary-container: #2c150f;
+            --m3-surface: #fff8f6;
+            --m3-surface-variant: #f5ded8;
+            --m3-on-surface: #201a18;
+            --m3-on-surface-variant: #53433f;
+            --m3-outline: #85736e;
+        }
+
+        /* Material You Card & Button Hover Physics */
+        .m3-card {
+            transition: transform 0.28s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.28s cubic-bezier(0.2, 0, 0, 1), background-color 0.28s ease;
+        }
+        .m3-card:hover {
+            transform: translateY(-4px);
+        }
+        .m3-btn {
+            transition: all 0.22s cubic-bezier(0.2, 0, 0, 1);
+        }
+        .m3-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* Breathing Circle Pulse Animation */
+        @keyframes breathePulse {
+            0%, 100% { transform: scale(1); opacity: 0.75; }
+            50% { transform: scale(1.4); opacity: 1; }
+        }
+        .animate-breathe {
+            animation: breathePulse 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between text-gray-700 relative pb-10 px-4">
+<body class="bg-m3-surface text-m3-onSurface min-h-screen flex flex-col font-sans transition-colors duration-300 antialiased selection:bg-m3-primaryContainer selection:text-m3-onPrimaryContainer">
 
-    <!-- Кнопка экстренного выхода (Всегда сверху при прокрутке) -->
-    <div class="sticky top-0 z-50 py-3 px-2 bg-[#e8efe9]/90 backdrop-blur-md flex justify-between items-center max-w-2xl mx-auto w-full border-b border-sage-200/60 mb-2">
-        <div class="flex items-center gap-2 text-sage-500 font-medium text-xs sm:text-sm">
-            <i class="fa-solid fa-shield-heart text-base sm:text-lg"></i>
-            <span>Мы не сохраняем никакой информации</span>
-        </div>
-        <a href="https://ya.ru" 
-           id="quick-exit-btn"
-           title="Быстрый уход с сайта, если кто-то подходит (или нажмите Esc)"
-           class="bg-panic-pink hover:bg-panic-pinkHover text-white text-xs sm:text-sm font-bold py-2.5 px-4 rounded-full shadow-lg transition-all duration-200 transform active:scale-95 flex items-center gap-2 border-2 border-white">
-            <i class="fa-solid fa-bolt"></i>
-            <span>Скрыть страницу (ya.ru)</span>
-            <span class="hidden sm:inline-block bg-black/20 text-[10px] px-1.5 py-0.5 rounded font-mono ml-0.5">Esc</span>
-        </a>
-    </div>
-
-    <!-- Основной контент -->
-    <main class="max-w-2xl mx-auto w-full my-auto py-6">
-        
-        <!-- Заголовок и приветствие -->
-        <div class="text-center mb-8">
-            <div class="inline-block p-3 bg-white/60 rounded-full mb-3 shadow-sm">
-                <i class="fa-solid fa-hand-holding-heart text-3xl text-sage-500"></i>
+    <!-- Privacy & Panic Exit Top Bar -->
+    <div class="bg-m3-surfaceVariant/90 text-m3-onSurfaceVariant px-4 py-3 border-b border-m3-outline/20 sticky top-0 z-50 backdrop-blur-md">
+        <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center space-x-2 text-xs sm:text-sm font-semibold">
+                <i class="fa-solid fa-user-shield text-m3-primary text-base"></i>
+                <span>Мы не сохраняем никакой информации</span>
+                <span class="hidden md:inline font-normal text-m3-onSurfaceVariant/80">— твоя сессия 100% анонимна</span>
             </div>
-            <h1 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">
-                Здесь в безопасности
-            </h1>
-            <p class="text-gray-600 text-sm sm:text-base leading-relaxed max-w-lg mx-auto">
-                Каждый из нас может оказаться в непростой ситуации.
-                 Здесь нет осуждения и давления. Выбери то, что ближе тебе прямо сейчас:
-            </p>
-        </div>
-
-        <!-- Карточки выбора -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-8">
             
-            <!-- Вариант для того, кого обижают -->
-            <a href="https://1.com" 
-               class="group bg-white/80 hover:bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 border border-emerald-100 flex flex-col justify-between cursor-pointer transform hover:-translate-y-1">
-                <div>
-                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-user-shield"></i>
-                    </div>
-                    <h2 class="text-lg font-bold text-gray-800 mb-2 group-hover:text-emerald-700 transition-colors">
-                        Мне тяжело / Меня обижают
-                    </h2>
-                    <p class="text-gray-600 text-xs sm:text-sm leading-relaxed mb-4">
-                        Если ты столкнулся с давлением, насмешками или одиночеством. Мы подскажем, как защитить себя и вернуть спокойствие
-                    </p>
-                </div>
-                <div class="flex items-center text-emerald-600 font-semibold text-sm group-hover:translate-x-1 transition-transform">
-                    <span>Найти поддержку и совет</span>
-                    <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-                </div>
-            </a>
-
-            <!-- Вариант для того, кто проявляет агрессию -->
-            <a href="https://2.com" 
-               class="group bg-white/80 hover:bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 border border-emerald-100 flex flex-col justify-between cursor-pointer transform hover:-translate-y-1">
-                <div>
-                    <div class="w-12 h-12 bg-teal-100 text-teal-600 rounded-xl flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-fire-burner"></i>
-                    </div>
-                    <h2 class="text-lg font-bold text-gray-800 mb-2 group-hover:text-teal-700 transition-colors">
-                        Я чувствую злость / Обижаю других
-                    </h2>
-                    <p class="text-gray-600 text-xs sm:text-sm leading-relaxed mb-4">
-                        Если эмоции выходят из-под контроля, хочется срываться на других или ты сожалеешь о содеянном. Давай разберемся вместе
-                </div>
-                <div class="flex items-center text-teal-600 font-semibold text-sm group-hover:translate-x-1 transition-transform">
-                    <span>Разобраться в себе</span>
-                    <i class="fa-solid fa-arrow-right ml-2 text-xs"></i>
-                </div>
-            </a>
-
-        </div>
-
-        <!-- Блок психологической помощи -->
-        <div class="bg-white/90 backdrop-blur rounded-2xl p-5 sm:p-6 shadow-sm border border-sage-200">
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-                <div class="flex items-center gap-4">
-                    <div class="hidden sm:flex w-12 h-12 bg-red-50 text-red-500 rounded-full items-center justify-center text-xl shrink-0">
-                        <i class="fa-solid fa-phone-volume"></i>
-                    </div>
-                    <div>
-                        <div class="flex items-center justify-center sm:justify-start gap-2 mb-1">
-                            <span class="text-xs font-semibold uppercase tracking-wider text-red-500 bg-red-50 px-2 py-0.5 rounded-md">
-                                Круглосуточно • Бесплатно • Анонимно
-                            </span>
-                        </div>
-                        <h3 class="font-bold text-gray-800 text-base sm:text-lg">
-                            Детский телефон доверия
-                        </h3>
-                        <p class="text-xs sm:text-sm text-gray-500">
-                            Если нужно поговорить прямо сейчас, психологи готовы выслушать
-                        </p>
-                    </div>
-                </div>
-                <a href="tel:88002000122" 
-                   class="w-full sm:w-auto bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-5 rounded-xl transition-colors duration-200 flex items-center justify-center gap-2 whitespace-nowrap text-sm shadow">
-                    <i class="fa-solid fa-phone text-xs text-emerald-400"></i>
-                    <span>8 800 2000 122</span>
+            <div class="flex items-center space-x-3">
+                <span class="hidden sm:inline-flex items-center text-xs bg-m3-surface px-2.5 py-1 rounded-m3-full border border-m3-outline/30 font-bold tracking-wide">
+                    Клавиша <kbd class="mx-1 px-1.5 py-0.5 bg-m3-surfaceVariant rounded text-m3-primary font-extrabold">Esc</kbd>
+                </span>
+                <a href="https://ya.ru" id="panicExitBtn" 
+                   title="Мгновенно открыть Яндекс и очистить историю"
+                   class="inline-flex items-center space-x-2 bg-m3-error text-white text-xs sm:text-sm px-4 py-2 rounded-m3-full font-bold hover:bg-red-700 transition shadow-m3-1">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Скрыть страницу (ya.ru)</span>
                 </a>
             </div>
         </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="max-w-6xl w-full mx-auto px-4 pt-6 pb-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center space-x-3.5 cursor-pointer group" onclick="switchSection('home')">
+            <div class="w-14 h-14 rounded-m3-xl bg-m3-primaryContainer text-m3-onPrimaryContainer flex items-center justify-center text-2xl shadow-m3-1 group-hover:scale-105 transition-transform">
+                <i class="fa-solid fa-heart-pulse text-m3-primary"></i>
+            </div>
+            <div>
+                <span class="text-xs font-extrabold uppercase tracking-widest text-m3-primary font-heading">Социальный проект</span>
+                <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-m3-onSurface font-heading">Моральный скотч</h1>
+            </div>
+        </div>
+
+        <!-- M3 Dynamic Theme Color Selectors & Quick Contact -->
+        <div class="flex items-center space-x-3 bg-m3-surfaceVariant/60 p-2 rounded-m3-full border border-m3-outline/20 shadow-sm">
+            <span class="text-xs font-bold text-m3-onSurfaceVariant/70 pl-2 hidden sm:inline">Тема:</span>
+            <div class="flex items-center space-x-1.5">
+                <button onclick="setTheme('default')" title="Фиолетовая лаванда (По умолчанию)" class="w-7 h-7 rounded-full bg-[#6750a4] border-2 border-white shadow-sm hover:scale-110 transition"></button>
+                <button onclick="setTheme('theme-mint')" title="Морская мята" class="w-7 h-7 rounded-full bg-[#006a60] border-2 border-white shadow-sm hover:scale-110 transition"></button>
+                <button onclick="setTheme('theme-coral')" title="Теплый коралл" class="w-7 h-7 rounded-full bg-[#9c4323] border-2 border-white shadow-sm hover:scale-110 transition"></button>
+            </div>
+            <div class="h-5 w-px bg-m3-outline/30"></div>
+            <button onclick="switchSection('hotlines')" class="text-xs sm:text-sm px-3.5 py-1.5 rounded-m3-full font-bold text-m3-onSurfaceVariant hover:bg-m3-surface transition flex items-center space-x-1.5">
+                <i class="fa-solid fa-phone-volume text-m3-primary"></i>
+                <span>Помощь 24/7</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-4 sm:py-8 flex flex-col justify-center">
+
+        <!-- SECTION 1: HOME / CHOICE HUB -->
+        <section id="section-home" class="space-y-8 animate-fadeIn">
+            
+            <!-- Hero Title & Tagline -->
+            <div class="text-center max-w-3xl mx-auto space-y-4">
+                <div class="inline-flex items-center space-x-2 bg-m3-secondaryContainer text-m3-onSecondaryContainer px-4 py-2 rounded-m3-full text-xs sm:text-sm font-bold">
+                    <i class="fa-solid fa-shield-heart text-m3-secondary"></i>
+                    <span>Здесь ты в безопасности</span>
+                </div>
+                
+                <h2 class="text-3xl sm:text-5xl font-black tracking-tight text-m3-onSurface font-heading leading-tight">
+                    Каждый из нас может оказаться в непростой ситуации
+                </h2>
+                
+                <p class="text-base sm:text-xl text-m3-onSurfaceVariant max-w-2xl mx-auto font-medium leading-relaxed">
+                    Здесь нет осуждения и давления. Мы рядом, чтобы помочь найти безопасный выход и вернуть чувство спокойствия. Выбери то, что ближе тебе прямо сейчас:
+                </p>
+            </div>
+
+            <!-- Material You Interactive Persona Selection Cards -->
+            <div class="grid md:grid-cols-2 gap-6 pt-2 max-w-4xl mx-auto">
+                
+                <!-- CARD 1: VICTIM / TARGET -->
+                <div class="m3-card bg-m3-primaryContainer text-m3-onPrimaryContainer rounded-m3-xl p-6 sm:p-9 flex flex-col justify-between border border-m3-outline/10 shadow-m3-1 relative overflow-hidden group">
+                    <div class="absolute -right-8 -bottom-8 w-40 h-40 bg-m3-primary/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+                    
+                    <div class="space-y-4 relative z-10">
+                        <div class="w-16 h-16 rounded-m3-lg bg-m3-surface text-m3-primary flex items-center justify-center text-3xl shadow-sm">
+                            <i class="fa-solid fa-hand-holding-heart"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-extrabold uppercase tracking-widest text-m3-primary font-heading">Мне нужна поддержка</span>
+                            <h3 class="text-2xl sm:text-3xl font-black mt-1 text-m3-onPrimaryContainer font-heading">Мне тяжело / Меня обижают</h3>
+                        </div>
+                        <p class="text-sm sm:text-base text-m3-onPrimaryContainer/85 leading-relaxed font-medium">
+                            Если ты столкнулся с давлением, насмешками, кибербуллингом или одиночеством. Мы подскажем, как защитить себя, куда обратиться и как вернуть спокойствие.
+                        </p>
+                    </div>
+
+                    <div class="pt-8 relative z-10">
+                        <button onclick="switchSection('victim-hub')" class="m3-btn w-full bg-m3-primary text-m3-onPrimary hover:opacity-95 font-bold py-4 px-6 rounded-m3-full flex items-center justify-center space-x-3 shadow-m3-2 text-base">
+                            <span>Найти поддержку и совет</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CARD 2: AGGRESSOR / BULLY LOOKING TO CHANGE -->
+                <div class="m3-card bg-m3-secondaryContainer text-m3-onSecondaryContainer rounded-m3-xl p-6 sm:p-9 flex flex-col justify-between border border-m3-outline/10 shadow-m3-1 relative overflow-hidden group">
+                    <div class="absolute -right-8 -bottom-8 w-40 h-40 bg-m3-secondary/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+                    
+                    <div class="space-y-4 relative z-10">
+                        <div class="w-16 h-16 rounded-m3-lg bg-m3-surface text-m3-secondary flex items-center justify-center text-3xl shadow-sm">
+                            <i class="fa-solid fa-fire-flame-curved"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-extrabold uppercase tracking-widest text-m3-secondary font-heading">Хочу измениться</span>
+                            <h3 class="text-2xl sm:text-3xl font-black mt-1 text-m3-onSecondaryContainer font-heading">Я чувствую злость / Обижаю других</h3>
+                        </div>
+                        <p class="text-sm sm:text-base text-m3-onSecondaryContainer/85 leading-relaxed font-medium">
+                            Если эмоции выходят из-под контроля, хочется срываться на других или ты сожалеешь о содеянном. Признать это — смелый шаг. Давай разберемся вместе.
+                        </p>
+                    </div>
+
+                    <div class="pt-8 relative z-10">
+                        <button onclick="switchSection('bully-hub')" class="m3-btn w-full bg-m3-secondary text-white hover:opacity-95 font-bold py-4 px-6 rounded-m3-full flex items-center justify-center space-x-3 shadow-m3-2 text-base">
+                            <span>Разобраться в себе</span>
+                            <i class="fa-solid fa-compass"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Quick Hotline Pill Bar -->
+            <div class="max-w-2xl mx-auto bg-m3-surfaceVariant/60 border border-m3-outline/20 rounded-m3-xl p-5 sm:p-6 text-center space-y-3 shadow-sm">
+                <div class="flex items-center justify-center space-x-2 text-xs font-black text-m3-primary tracking-widest uppercase font-heading">
+                    <i class="fa-solid fa-clock"></i>
+                    <span>Круглосуточно • Бесплатно • Анонимно</span>
+                </div>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <div class="text-sm sm:text-base font-bold">Детский телефон доверия:</div>
+                    <a href="tel:88002000122" class="inline-flex items-center space-x-2.5 bg-m3-primary text-m3-onPrimary px-5 py-2.5 rounded-m3-full font-black text-lg hover:shadow-m3-2 transition">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>8 800 2000 122</span>
+                    </a>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- SECTION 2: VICTIM SUPPORT HUB -->
+        <section id="section-victim-hub" class="hidden space-y-6 animate-fadeIn">
+            
+            <!-- Navigation Back Button & Badge -->
+            <div class="flex items-center justify-between">
+                <button onclick="switchSection('home')" class="inline-flex items-center space-x-2 text-sm font-bold text-m3-primary bg-m3-primaryContainer/60 hover:bg-m3-primaryContainer px-4 py-2.5 rounded-m3-full transition">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>На главную</span>
+                </button>
+                <span class="text-xs bg-m3-primaryContainer text-m3-onPrimaryContainer px-3.5 py-1.5 rounded-m3-full font-bold">Раздел поддержки</span>
+            </div>
+
+            <!-- Header Hero Box -->
+            <div class="bg-m3-primaryContainer/40 p-6 sm:p-9 rounded-m3-xl border border-m3-outline/10 space-y-3">
+                <h2 class="text-2xl sm:text-4xl font-black text-m3-onSurface font-heading">Если тебя обижают или травят</h2>
+                <p class="text-m3-onSurfaceVariant text-sm sm:text-base max-w-3xl font-medium leading-relaxed">
+                    Первое и самое важное: <strong>ты не виноват(а) в том, что происходит</strong>. Травля — это не твоя ошибка, а поведение тех, кто ее устраивает. Давай разберем простые шаги, которые помогут защитить тебя прямо сейчас.
+                </p>
+            </div>
+
+            <!-- Actionable Steps Grid -->
+            <div class="grid md:grid-cols-3 gap-5">
+                <div class="bg-m3-surfaceVariant/40 p-6 rounded-m3-lg border border-m3-outline/20 space-y-3">
+                    <div class="w-12 h-12 rounded-m3-md bg-m3-primary text-m3-onPrimary flex items-center justify-center font-black text-xl font-heading">1</div>
+                    <h4 class="font-bold text-xl text-m3-onSurface font-heading">Расскажи взрослому</h4>
+                    <p class="text-xs sm:text-sm text-m3-onSurfaceVariant font-medium leading-relaxed">
+                        Поделись с тем, кому доверяешь: родителем, учителем, школьным психологом или любимым тренером. Попросить о помощи — это проявление силы и заботы о себе.
+                    </p>
+                </div>
+
+                <div class="bg-m3-surfaceVariant/40 p-6 rounded-m3-lg border border-m3-outline/20 space-y-3">
+                    <div class="w-12 h-12 rounded-m3-md bg-m3-primary text-m3-onPrimary flex items-center justify-center font-black text-xl font-heading">2</div>
+                    <h4 class="font-bold text-xl text-m3-onSurface font-heading">Сохраняй улики</h4>
+                    <p class="text-xs sm:text-sm text-m3-onSurfaceVariant font-medium leading-relaxed">
+                        Если травля идет в интернете (кибербуллинг) — делай скриншоты оскорблений, сохраняй ссылки и комментарии. Не удаляй переписку: она поможет доказать факт буллинга.
+                    </p>
+                </div>
+
+                <div class="bg-m3-surfaceVariant/40 p-6 rounded-m3-lg border border-m3-outline/20 space-y-3">
+                    <div class="w-12 h-12 rounded-m3-md bg-m3-primary text-m3-onPrimary flex items-center justify-center font-black text-xl font-heading">3</div>
+                    <h4 class="font-bold text-xl text-m3-onSurface font-heading">Не отвечай агрессией</h4>
+                    <p class="text-xs sm:text-sm text-m3-onSurfaceVariant font-medium leading-relaxed">
+                        Агрессоры питаются твоими эмоциями. Спокойное молчание, игнорирование или отправка обидчика в «черный список» быстро лишают их источника внимания.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Interactive Breathing Exercise Widget -->
+            <div class="bg-m3-surface p-6 sm:p-8 rounded-m3-xl border border-m3-outline/30 shadow-m3-1 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="space-y-3 text-center md:text-left max-w-md">
+                    <span class="text-xs font-black text-m3-primary uppercase tracking-widest font-heading">Интерактивная практика</span>
+                    <h3 class="text-2xl font-black font-heading">Упражнение: Заземление и дыхание</h3>
+                    <p class="text-xs sm:text-sm text-m3-onSurfaceVariant font-medium leading-relaxed">
+                        Чувствуешь тревогу, страх или ком в горле? Сделай глубокий вдох, следя за дыхательным кругом. Это снизит пульс и вернет контроль над телом.
+                    </p>
+                </div>
+
+                <div class="flex flex-col items-center justify-center space-y-3">
+                    <div class="relative w-32 h-32 flex items-center justify-center">
+                        <div id="breathingCircle" class="absolute inset-0 bg-m3-primaryContainer rounded-full animate-breathe opacity-80"></div>
+                        <div class="relative z-10 font-bold text-xs sm:text-sm text-m3-onPrimaryContainer text-center px-2 font-heading">
+                            Вдох ... Выдох
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ready-made Message Templates -->
+            <div class="bg-m3-surfaceVariant/30 p-6 rounded-m3-xl border border-m3-outline/20 space-y-4">
+                <h3 class="font-bold text-xl font-heading flex items-center space-x-2.5">
+                    <i class="fa-regular fa-comment-dots text-m3-primary"></i>
+                    <span>Готовые шаблоны: Как попросить о помощи</span>
+                </h3>
+                <div class="grid sm:grid-cols-2 gap-4 text-xs sm:text-sm">
+                    <div class="bg-m3-surface p-5 rounded-m3-md border border-m3-outline/20 flex flex-col justify-between space-y-3">
+                        <p class="italic text-m3-onSurfaceVariant font-medium">
+                            «Мне сейчас очень тяжело в школе / в интернете. Я столкнулся(лась) с ситуацией, с которой не могу справиться сам(а). Помоги мне, пожалуйста.»
+                        </p>
+                        <button onclick="copyText('Мне сейчас очень тяжело в школе / в интернете. Я столкнулся(лась) с ситуацией, с которой не могу справиться сам(а). Помоги мне, пожалуйста.', this)" class="text-xs font-bold text-m3-primary hover:underline inline-flex items-center space-x-1.5 self-start">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>Скопировать текст</span>
+                        </button>
+                    </div>
+
+                    <div class="bg-m3-surface p-5 rounded-m3-md border border-m3-outline/20 flex flex-col justify-between space-y-3">
+                        <p class="italic text-m3-onSurfaceVariant font-medium">
+                            «Здравствуйте! Мне нужно поговорить с вами наедине о том, что происходит в нашем классе. Это касается моей безопасности и здоровья.»
+                        </p>
+                        <button onclick="copyText('Здравствуйте! Мне нужно поговорить с вами наедине о том, что происходит в нашем классе. Это касается моей безопасности и здоровья.', this)" class="text-xs font-bold text-m3-primary hover:underline inline-flex items-center space-x-1.5 self-start">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>Скопировать текст</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center pt-2">
+                <button onclick="switchSection('hotlines')" class="m3-btn bg-m3-primary text-m3-onPrimary font-bold px-8 py-4 rounded-m3-full shadow-m3-2 inline-flex items-center space-x-3 text-base">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>Позвонить анонимному психологу</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- SECTION 3: BULLY / AGGRESSOR HUB -->
+        <section id="section-bully-hub" class="hidden space-y-6 animate-fadeIn">
+            
+            <!-- Navigation Back Button & Badge -->
+            <div class="flex items-center justify-between">
+                <button onclick="switchSection('home')" class="inline-flex items-center space-x-2 text-sm font-bold text-m3-secondary bg-m3-secondaryContainer/60 hover:bg-m3-secondaryContainer px-4 py-2.5 rounded-m3-full transition">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>На главную</span>
+                </button>
+                <span class="text-xs bg-m3-secondaryContainer text-m3-onSecondaryContainer px-3.5 py-1.5 rounded-m3-full font-bold">Раздел самопознания</span>
+            </div>
+
+            <!-- Header Hero Box -->
+            <div class="bg-m3-secondaryContainer/40 p-6 sm:p-9 rounded-m3-xl border border-m3-outline/10 space-y-3">
+                <h2 class="text-2xl sm:text-4xl font-black text-m3-onSurface font-heading">Если ты чувствуешь злость или обижаешь других</h2>
+                <p class="text-m3-onSurfaceVariant text-sm sm:text-base max-w-3xl font-medium leading-relaxed">
+                    То, что ты зашел сюда — это знак высокой зрелости. Иногда злость, желание доминировать или выместить обиду берут верх. Но ты в силах изменить то, как ты выражаешь свои эмоции.
+                </p>
+            </div>
+
+            <!-- Interactive Self-reflection Checklist -->
+            <div class="bg-m3-surface p-6 sm:p-8 rounded-m3-xl border border-m3-outline/30 space-y-4 shadow-m3-1">
+                <h3 class="font-bold text-xl text-m3-onSurface font-heading flex items-center space-x-2.5">
+                    <i class="fa-solid fa-brain text-m3-secondary"></i>
+                    <span>Откуда берется желание задевать других? (Отметь, что знакомо)</span>
+                </h3>
+                
+                <div class="grid sm:grid-cols-2 gap-3 text-xs sm:text-sm">
+                    <label class="flex items-start space-x-3 p-4 rounded-m3-md bg-m3-surfaceVariant/30 hover:bg-m3-surfaceVariant/60 cursor-pointer transition">
+                        <input type="checkbox" class="mt-1 w-4 h-4 rounded border-m3-outline text-m3-secondary focus:ring-m3-secondary">
+                        <span class="font-medium text-m3-onSurface"><strong>Защита:</strong> Я сам(а) испытывал(а) боль и пытаюсь первым проявить силу, чтобы меня не обидели.</span>
+                    </label>
+
+                    <label class="flex items-start space-x-3 p-4 rounded-m3-md bg-m3-surfaceVariant/30 hover:bg-m3-surfaceVariant/60 cursor-pointer transition">
+                        <input type="checkbox" class="mt-1 w-4 h-4 rounded border-m3-outline text-m3-secondary focus:ring-m3-secondary">
+                        <span class="font-medium text-m3-onSurface"><strong>Авторитет:</strong> Мне кажется, что только так меня будут уважать и замечать в компании.</span>
+                    </label>
+
+                    <label class="flex items-start space-x-3 p-4 rounded-m3-md bg-m3-surfaceVariant/30 hover:bg-m3-surfaceVariant/60 cursor-pointer transition">
+                        <input type="checkbox" class="mt-1 w-4 h-4 rounded border-m3-outline text-m3-secondary focus:ring-m3-secondary">
+                        <span class="font-medium text-m3-onSurface"><strong>Стресс:</strong> Внутри накопилось много гнева из-за проблем дома, в учебе или личной жизни.</span>
+                    </label>
+
+                    <label class="flex items-start space-x-3 p-4 rounded-m3-md bg-m3-surfaceVariant/30 hover:bg-m3-surfaceVariant/60 cursor-pointer transition">
+                        <input type="checkbox" class="mt-1 w-4 h-4 rounded border-m3-outline text-m3-secondary focus:ring-m3-secondary">
+                        <span class="font-medium text-m3-onSurface"><strong>За компанию:</strong> Все смеялись, и я поддержал(а) шутку, не задумываясь, как это ранит другого.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 3 Step Protocol for Anger Control -->
+            <div class="grid md:grid-cols-3 gap-5">
+                <div class="bg-m3-secondaryContainer/25 p-6 rounded-m3-lg border border-m3-outline/20 space-y-2">
+                    <div class="text-m3-secondary font-black text-xs tracking-widest uppercase font-heading">Шаг 1: Пауза</div>
+                    <h4 class="font-bold text-lg font-heading">Правило 10 секунд</h4>
+                    <p class="text-xs sm:text-sm text-m3-onSurfaceVariant font-medium leading-relaxed">
+                        Когда хочется написать злой комментарий или толкнуть кого-то — сделай глубокий вдох и сосчитай про себя до 10. Дай разумной части мозга включиться.
+                    </p>
+                </div>
+
+                <div class="bg-m3-secondaryContainer/25 p-6 rounded-m3-lg border border-m3-outline/20 space-y-2">
+                    <div class="text-m3-secondary font-black text-xs tracking-widest uppercase font-heading">Шаг 2: Вспышка</div>
+                    <h4 class="font-bold text-lg font-heading">Сбрось пар без вреда</h4>
+                    <p class="text-xs sm:text-sm text-m3-onSurfaceVariant font-medium leading-relaxed">
+                        Сжатый кулак, отжимания, пробежка, быстрая ходьба или скомканный лист бумаги помогают сбросить лишний адреналин безопасно для людей вокруг.
+                    </p>
+                </div>
+
+                <div class="bg-m3-secondaryContainer/25 p-6 rounded-m3-lg border border-m3-outline/20 space-y-2">
+                    <div class="text-m3-secondary font-black text-xs tracking-widest uppercase font-heading">Шаг 3: Шаг вперед</div>
+                    <h4 class="font-bold text-lg font-heading">Сила признать ошибку</h4>
+                    <p class="text-xs sm:text-sm text-m3-onSurfaceVariant font-medium leading-relaxed">
+                        Короткое сообщение: «Слушай, я был(а) не прав(а) вчера. Извини за резкость» — сделает тебя гораздо сильнее в глазах окружающих.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Help CTA -->
+            <div class="bg-m3-surfaceVariant/40 p-6 sm:p-8 rounded-m3-xl text-center space-y-4 border border-m3-outline/20">
+                <h3 class="font-bold text-xl font-heading">Трудно справляться с эмоциями самостоятельно?</h3>
+                <p class="text-xs sm:text-sm text-m3-onSurfaceVariant max-w-xl mx-auto font-medium leading-relaxed">
+                    Психологи горячей линии помогают не только тем, кого обижают, но и тем, кто сам чувствует постоянную злость или вспышки гнева.
+                </p>
+                <button onclick="switchSection('hotlines')" class="m3-btn bg-m3-secondary text-white font-bold px-8 py-3.5 rounded-m3-full shadow-m3-1 inline-flex items-center space-x-2 text-base">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    <span>Анонимный разговор с психологом</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- SECTION 4: HOTLINES & CONTACTS -->
+        <section id="section-hotlines" class="hidden space-y-6 animate-fadeIn">
+            
+            <!-- Navigation Back Button & Badge -->
+            <div class="flex items-center justify-between">
+                <button onclick="switchSection('home')" class="inline-flex items-center space-x-2 text-sm font-bold text-m3-primary bg-m3-primaryContainer/60 hover:bg-m3-primaryContainer px-4 py-2.5 rounded-m3-full transition">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>На главную</span>
+                </button>
+                <span class="text-xs bg-m3-surfaceVariant text-m3-onSurfaceVariant px-3.5 py-1.5 rounded-m3-full font-bold">Контакты 24/7</span>
+            </div>
+
+            <div class="text-center space-y-2">
+                <h2 class="text-3xl sm:text-4xl font-black font-heading">Горячие линии помощи</h2>
+                <p class="text-xs sm:text-sm text-m3-onSurfaceVariant font-medium max-w-lg mx-auto">
+                    Все звонки абсолютно бесплатны с любых мобильных и городских телефонов на территории РФ. Разговор не записывается.
+                </p>
+            </div>
+
+            <!-- Hotline Cards Grid -->
+            <div class="grid md:grid-cols-2 gap-5 pt-2">
+                <!-- Hotline 1 -->
+                <div class="bg-m3-surface p-7 rounded-m3-xl border border-m3-outline/30 shadow-m3-1 flex flex-col justify-between space-y-5">
+                    <div class="space-y-3">
+                        <div class="inline-block bg-emerald-100 text-emerald-800 text-xs px-3 py-1 rounded-full font-extrabold">
+                            Круглосуточно • Бесплатно • Анонимно
+                        </div>
+                        <h3 class="text-2xl font-black text-m3-onSurface font-heading">Детский телефон доверия</h3>
+                        <p class="text-xs sm:text-sm text-m3-onSurfaceVariant font-medium leading-relaxed">
+                            Единый общероссийский номер для детей, подростков и их родителей. Опытные психологи выслушают без осуждения и помогут найти безопасный выход.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-m3-outline/15">
+                        <span class="text-2xl sm:text-3xl font-black tracking-tight text-m3-primary font-heading">8 800 2000 122</span>
+                        <a href="tel:88002000122" class="bg-m3-primary text-m3-onPrimary px-5 py-2.5 rounded-m3-full font-bold text-sm hover:shadow-m3-2 transition inline-flex items-center space-x-2">
+                            <i class="fa-solid fa-phone"></i>
+                            <span>Позвонить</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hotline 2 -->
+                <div class="bg-m3-surface p-7 rounded-m3-xl border border-m3-outline/30 shadow-m3-1 flex flex-col justify-between space-y-5">
+                    <div class="space-y-3">
+                        <div class="inline-block bg-sky-100 text-sky-800 text-xs px-3 py-1 rounded-full font-extrabold">
+                            Помощь при кибербуллинге
+                        </div>
+                        <h3 class="text-2xl font-black text-m3-onSurface font-heading">Горячая линия «Дети Онлайн»</h3>
+                        <p class="text-xs sm:text-sm text-m3-onSurfaceVariant font-medium leading-relaxed">
+                            Психологическая и экспертная помощь при травле в соцсетях, шантаже, взломах аккаунтов или преследовании в интернете.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-m3-outline/15">
+                        <span class="text-2xl sm:text-3xl font-black tracking-tight text-m3-primary font-heading">8 800 250 0015</span>
+                        <a href="tel:88002500015" class="bg-m3-primary text-m3-onPrimary px-5 py-2.5 rounded-m3-full font-bold text-sm hover:shadow-m3-2 transition inline-flex items-center space-x-2">
+                            <i class="fa-solid fa-phone"></i>
+                            <span>Позвонить</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emergency Warning Note -->
+            <div class="bg-m3-errorContainer/60 p-5 rounded-m3-lg border border-m3-error/30 text-xs sm:text-sm text-m3-onErrorContainer flex items-start space-x-3.5">
+                <i class="fa-solid fa-triangle-exclamation text-m3-error text-xl mt-0.5"></i>
+                <div class="font-medium leading-relaxed">
+                    <strong>Если существует прямая угроза жизни или физическому здоровью:</strong> Пожалуйста, незамедлительно обратись к сотрудникам полиции (<strong>102 / 112</strong>) или в скорую помощь (<strong>103</strong>).
+                </div>
+            </div>
+        </section>
 
     </main>
 
-    <!-- Подвал страницы -->
-    <footer class="text-center text-xs text-gray-500 max-w-2xl mx-auto w-full pt-4">
-        <p>Твои посещения полностью анонимны. Мы не сохраняем личную информацию.</p>
+    <!-- Footer -->
+    <footer class="mt-auto border-t border-m3-outline/20 bg-m3-surfaceVariant/30 py-6 text-center text-xs text-m3-onSurfaceVariant">
+        <div class="max-w-6xl mx-auto px-4 space-y-2">
+            <p class="font-extrabold text-m3-onSurface font-heading">Социальный проект «Моральный скотч» © 2026</p>
+            <p class="font-medium">Безопасная гавань и психоэмоциональная поддержка для подростков. Мы не собираем и не храним личные данные.</p>
+            <p class="text-[11px] opacity-75 font-semibold">Нажми <kbd class="px-1.5 py-0.5 bg-m3-surface rounded border border-m3-outline/30 text-m3-primary">Esc</kbd> в любой момент для экстренного скрытия страницы.</p>
+        </div>
     </footer>
 
-    <!-- Скрипт быстрого выхода по клавише Esc -->
+    <!-- Interactive Material Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-m3-onSurface text-m3-surface text-xs sm:text-sm font-bold px-5 py-3 rounded-m3-full shadow-m3-3 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none z-50 flex items-center space-x-2">
+        <i class="fa-solid fa-check text-emerald-400"></i>
+        <span id="toastMessage">Сообщение</span>
+    </div>
+
+    <!-- JavaScript Logic -->
     <script>
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
+        // Section Navigation
+        function switchSection(sectionId) {
+            const sections = ['home', 'victim-hub', 'bully-hub', 'hotlines'];
+            sections.forEach(id => {
+                const el = document.getElementById(`section-${id}`);
+                if (el) {
+                    if (id === sectionId) {
+                        el.classList.remove('hidden');
+                    } else {
+                        el.classList.add('hidden');
+                    }
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Material You Dynamic Theme Switcher
+        function setTheme(themeClass) {
+            document.body.classList.remove('theme-mint', 'theme-coral');
+            if (themeClass !== 'default') {
+                document.body.classList.add(themeClass);
+            }
+            showToast('Цветовая схема обновлена');
+        }
+
+        // Panic Exit Keyboard Event (Esc Key)
+        window.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' || e.keyCode === 27) {
+                document.body.innerHTML = '';
                 window.location.href = 'https://ya.ru';
             }
         });
+
+        // Clipboard Copy Helper (for iframe/canvas compatibility)
+        function copyText(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                showToast('Текст скопирован в буфер обмена!');
+            } catch (err) {
+                showToast('Ошибка при копировании');
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
+
+        // Toast Popup Trigger
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            if (!toast || !toastMessage) return;
+            
+            toastMessage.innerText = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2600);
+        }
+
+        window.onload = function() {
+            console.log('Moral Scotch redesign initialized successfully.');
+        };
     </script>
 </body>
 </html>
